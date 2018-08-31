@@ -1,0 +1,162 @@
+declare module "modern-syslog" {
+  import {Stream} from "stream";
+
+  // tslint:disable-next-line
+  export interface level {
+    LOG_LEVEL0: number;
+    LOG_LEVEL1: number;
+    LOG_LEVEL2: number;
+    LOG_LEVEL3: number;
+    LOG_LEVEL4: number;
+    LOG_LEVEL5: number;
+    LOG_LEVEL6: number;
+    LOG_LEVEL7: number;
+    emergency: number;
+    alert: number;
+    critical: number;
+    error: number;
+    warning: number;
+    notice: number;
+    info: number;
+    debug: number;
+  }
+
+  // tslint:disable-next-line
+  export interface facility {
+    LOG_KERN: number;
+    LOG_USER: number;
+    LOG_MAIL: number;
+    LOG_DAEMON: number;
+    LOG_AUTH: number;
+    LOG_SYSLOG: number;
+    LOG_LPR: number;
+    LOG_NEWS: number;
+    LOG_UUCP: number;
+    LOG_CLOCK: number;
+    LOG_AUTHPRIV: number;
+    LOG_FTP: number;
+    LOG_NTP: number;
+    LOG_LOGAUDIT: number;
+    LOG_LOGALERT: number;
+    LOG_CRON: number;
+    LOG_LOCAL0: number;
+    LOG_LOCAL1: number;
+    LOG_LOCAL2: number;
+    LOG_LOCAL3: number;
+    LOG_LOCAL4: number;
+    LOG_LOCAL5: number;
+    LOG_LOCAL6: number;
+    LOG_LOCAL7: number;
+  }
+
+  // tslint:disable-next-line
+  export interface option {
+    LOG_ODELAY: number;
+    LOG_PERROR: number;
+    LOG_PID: number;
+  }
+
+  // Facilities
+  export const LOG_KERN = 0;
+  export const LOG_USER = 1;
+  export const LOG_MAIL = 2;
+  export const LOG_DAEMON = 3;
+  export const LOG_AUTH = 4;
+  export const LOG_SYSLOG = 5;
+  export const LOG_LPR = 6;
+  export const LOG_NEWS = 7;
+  export const LOG_UUCP = 8;
+  export const LOG_CLOCK = 9;
+  export const LOG_AUTHPRIV = 10;
+  export const LOG_FTP = 11;
+  export const LOG_NTP = 12;
+  export const LOG_LOGAUDIT = 13;
+  export const LOG_LOGALERT = 14;
+  export const LOG_CRON = 15;
+  export const LOG_LOCAL0 = 16;
+  export const LOG_LOCAL1 = 17;
+  export const LOG_LOCAL2 = 18;
+  export const LOG_LOCAL3 = 19;
+  export const LOG_LOCAL4 = 20;
+  export const LOG_LOCAL5 = 21;
+  export const LOG_LOCAL6 = 22;
+  export const LOG_LOCAL7 = 23;
+
+  // RFC 5424 Levels
+  export const LOG_DEBUG = 7;
+  export const LOG_INFO = 6;
+  export const LOG_NOTICE = 5;
+  export const LOG_WARNING = 4;
+  export const LOG_ERROR = 3;
+  export const LOG_CRITICAL = 2;
+  export const LOG_ALERT = 1;
+  export const LOG_EMERG = 0;
+
+  // Options
+  export const LOG_PID = -1;
+  export const LOG_ODELAY = -1;
+
+  export const core: {
+    facility: {
+      LOG_KERN: number;
+      LOG_USER: number;
+      LOG_MAIL: number;
+      LOG_DAEMON: number;
+      LOG_AUTH: number;
+      LOG_SYSLOG: number;
+      LOG_LPR: number;
+      LOG_NEWS: number;
+      LOG_UUCP: number;
+      LOG_CLOCK: number;
+      LOG_AUTHPRIV: number;
+      LOG_FTP: number;
+      LOG_NTP: number;
+      LOG_LOGAUDIT: number;
+      LOG_LOGALERT: number;
+      LOG_CRON: number;
+      LOG_LOCAL0: number;
+      LOG_LOCAL1: number;
+      LOG_LOCAL2: number;
+      LOG_LOCAL3: number;
+      LOG_LOCAL4: number;
+      LOG_LOCAL5: number;
+      LOG_LOCAL6: number;
+      LOG_LOCAL7: number;
+    };
+    level: {
+      LOG_DEBUG: number,
+      LOG_INFO: number;
+      LOG_NOTICE: number;
+      LOG_WARNING: number;
+      LOG_ERROR: number;
+      LOG_CRITICAL: number;
+      LOG_ALERT: number;
+      LOG_EMERG: number;
+    };
+
+    option: {
+      LOG_ODELAY: number;
+      LOG_PERROR: number;
+      LOG_PID: number;
+    };
+
+    toFacility: (facility: string|number) => number;
+    toLevel: (level: string|number) => number;
+    closelog(): void;
+    openlog(): void;
+    setlogmask(): void;
+    syslog(level: number, message: any, callback: () => void): void;
+  };
+
+  export function curmask(): number;
+  export function debug(message: string): void;
+  export function init(ident: string, option: number, facility: number): void;
+  export function log(level: number, message: string, callback?: () => void): void;
+  export function logUpTo(levelString: string): void;
+  export function open(ident: string, option: number, facility: number): void;
+  export function setmask(mask?: number): void;
+  export function upto(levelString: string): void;
+
+  const StreamConstructor: new () => Stream;
+  export { StreamConstructor as Stream };
+}
